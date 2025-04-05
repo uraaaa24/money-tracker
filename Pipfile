@@ -9,6 +9,10 @@ uvicorn = "*"
 supabase = "*"
 python-dotenv = "*"
 pyjwt = "*"
+clerk-backend-api = "*"
+sqlalchemy = "*"
+psycopg2-binary = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"
