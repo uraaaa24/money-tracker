@@ -1,11 +1,18 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { navItems } from "@/constants/nav-items"
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
+import { cn } from "@/lib/utils"
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { LogIn } from "lucide-react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 
 const Sidebar = () => {
+  const pathName = usePathname()
+  const isActive = (path: string) => path === pathName
+
   return (
     <aside className="h-screen w-64 border-r bg-white p-4">
       <div className="flex items-center justify-between mb-6 h-10 px-2">
@@ -39,7 +46,9 @@ const Sidebar = () => {
           <Link key={item.href} href={item.href}>
             <Button
               variant="ghost"
-              className="w-full justify-start gap-2 px-3 hover:bg-gray-100 cursor-pointer"
+              className={cn("w-full justify-start gap-2 px-3 hover:bg-gray-100 cursor-pointer",
+                isActive(item.href) && "bg-gray-100"
+              )}
             >
               {item.icon}
               {item.label}
