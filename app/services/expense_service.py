@@ -1,24 +1,24 @@
-# import pprint
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import desc, select
+
+from app.models.expense import Expense
 
 
-# async def get_expenses_by_user_id(user_id: int):
-#     """
-#     Fetch expenses for a specific user.
-#     """
-#     supabase = await get_supabase_client()
 
-#     # user_id = "user_2uy5b3N3zpd9JjGHBa4MaZMEGEE"
+async def get_expenses_by_user_id(session: AsyncSession, user_id: int):
+  """
+    ユーザーIDを指定して、そのユーザーの支出を取得する
+  """
 
-#     response = (
-#         supabase.from_("expenses")
-#         .select("*")
-#         .eq("user_id", user_id)
-#         .order("date", desc=True)
-#         .order("created_at", desc=True)
-#         .execute()
-#     )
+  stmt = (
+    select(Expense)
+    .where(Expense.user_id == user_id)
+    .order_by(desc(Expense.date), desc(Expense.created_at))
+  )
 
-#     if response.error:
-#         raise Exception(f"Error fetching expenses: {response.error.message}")
+  result = await session.execute(stmt)
+  expenses = result.scalars().all()
 
-#     return response.data
+
+
+  return expenses
