@@ -1,13 +1,11 @@
+import AppLayout from "@/components/layouts/appLayout"
 import TransactionTable from "./_components/transaction-table"
 
 const TransactionsPage = async () => {
   return (
-    <>
-      Transactions Page
-      <div className="container mx-auto py-10">
-        <TransactionTable />
-      </div>
-    </>
+    <AppLayout title="Transactions Page">
+      <TransactionTable />
+    </AppLayout>
   )
 }
 

@@ -44,6 +44,10 @@ const TransactionTable = async () => {
 
   const columns: ColumnDef<Transaction>[] = [
     {
+      accessorKey: 'date',
+      header: 'Date',
+    },
+    {
       accessorKey: 'amount',
       header: 'Amount',
     },
@@ -52,8 +56,8 @@ const TransactionTable = async () => {
       header: 'Category',
     },
     {
-      accessorKey: 'date',
-      header: 'Date',
+      accessorKey: "note",
+      header: "Note"
     },
   ]
 

@@ -14,7 +14,7 @@ const Sidebar = () => {
   const isActive = (path: string) => path === pathName
 
   return (
-    <aside className="h-screen w-64 border-r bg-white p-4">
+    <aside className="h-screen w-64 border-r bg-white px-6 py-8">
       <div className="flex items-center justify-between mb-6 h-10 px-2">
         <div className="text-xl font-bold leading-none">Money Tracker</div>
         <div className="flex items-center">

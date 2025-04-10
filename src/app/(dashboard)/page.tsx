@@ -1,3 +1,4 @@
+import AppLayout from '@/components/layouts/appLayout'
 import { auth } from '@clerk/nextjs/server'
 
 export default async function Home() {
@@ -9,5 +10,7 @@ export default async function Home() {
   console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
   console.log(token)
 
-  return <>Dashboard Page</>
+  return <AppLayout title="Dashboard Page">
+    Hello World!
+  </AppLayout>
 }
