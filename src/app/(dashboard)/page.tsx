@@ -1,4 +1,4 @@
-import AppLayout from '@/components/layouts/appLayout'
+import AppLayout from '@/components/layouts/app-layout'
 import { auth } from '@clerk/nextjs/server'
 
 export default async function Home() {
