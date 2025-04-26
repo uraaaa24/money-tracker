@@ -41,12 +41,12 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <nav className="space-y-1">
+      <nav className="flex flex-col space-y-1">
         {navItems.map((item) => (
           <Link key={item.href} href={item.href}>
             <Button
               variant="ghost"
-              className={cn("w-full justify-start gap-2 px-3 hover:bg-gray-100 cursor-pointer",
+              className={cn("w-full justify-start gap-2 hover:bg-gray-100 cursor-pointer",
                 isActive(item.href) && "bg-gray-100"
               )}
             >

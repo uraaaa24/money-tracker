@@ -1,5 +1,11 @@
 import AppLayout from '@/components/layouts/app-layout'
 import { auth } from '@clerk/nextjs/server'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'Dashboard page',
+}
 
 export default async function Home() {
   // NOTE: これを使ってバックエンドに認証情報を渡す
@@ -10,7 +16,5 @@ export default async function Home() {
   console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
   console.log(token)
 
-  return <AppLayout title="Dashboard Page">
-    Hello World!
-  </AppLayout>
+  return <AppLayout title="Dashboard Page">Hello World!</AppLayout>
 }

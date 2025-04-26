@@ -1,5 +1,11 @@
-import AppLayout from "@/components/layouts/app-layout"
-import TransactionTable from "./_components/transaction-table"
+import AppLayout from '@/components/layouts/app-layout'
+import type { Metadata } from 'next'
+import TransactionTable from './_components/transaction-table'
+
+export const metadata: Metadata = {
+  title: 'Transactions',
+  description: 'Transaction history',
+}
 
 const TransactionsPage = async () => {
   return (
