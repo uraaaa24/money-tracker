@@ -1,5 +1,6 @@
 import AppLayout from '@/components/layouts/app-layout'
 import type { Metadata } from 'next'
+import AddTransactionForm from './_components/add-form'
 import TransactionTable from './_components/transaction-table'
 
 export const metadata: Metadata = {
@@ -10,6 +11,9 @@ export const metadata: Metadata = {
 const TransactionsPage = async () => {
   return (
     <AppLayout title="Transactions Page">
+      <div className="flex justify-end mb-4">
+        <AddTransactionForm />
+      </div>
       <div className="bg-white rounded-lg">
         <TransactionTable />
       </div>

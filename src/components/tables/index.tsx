@@ -33,7 +33,7 @@ export function DataTable<TData, TValue>({
           <TableRow key={headerGroup.id} className='pointer-events-none'>
             {headerGroup.headers.map((header) => {
               return (
-                <TableHead key={header.id} className='p-4 text-gray-500 font-bold'>
+                <TableHead key={header.id} className='p-4 text-gray-500'>
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
