@@ -37,7 +37,6 @@ const AddTransactionForm = () => {
   const form = useForm<TransactionFormInferType>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: transactionDefaultValues,
-    mode: "onChange"
   })
 
   const handleSubmit = async (values: TransactionFormInferType) => {

@@ -22,7 +22,9 @@ const DateField = () => {
           <FormControl>
             <SingleDatePicker
               selected={field.value}
-              onSelect={field.onChange}
+              onSelect={(date) => {
+                if (date) field.onChange(date)
+              }}
               disabled={isDateDisabled}
             />
           </FormControl>
