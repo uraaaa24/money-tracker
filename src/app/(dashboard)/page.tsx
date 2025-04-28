@@ -1,5 +1,7 @@
-import AppLayout from '@/components/layouts/app-layout'
 import { auth } from '@clerk/nextjs/server'
+
+import AppLayout from '@/components/layouts/app-layout'
+
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

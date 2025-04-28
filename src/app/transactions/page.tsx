@@ -1,7 +1,9 @@
 import AppLayout from '@/components/layouts/app-layout'
-import type { Metadata } from 'next'
+
 import AddTransactionForm from './_components/add-form'
 import TransactionTable from './_components/transaction-table'
+
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Transactions',

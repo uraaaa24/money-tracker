@@ -1,12 +1,14 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { navItems } from "@/constants/nav-items"
-import { cn } from "@/lib/utils"
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { LogIn } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+
+import { Button } from "@/components/ui/button"
+import { navItems } from "@/constants/nav-items"
+import { cn } from "@/lib/utils"
+
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 
 const Sidebar = () => {

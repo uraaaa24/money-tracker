@@ -1,75 +1,91 @@
 'use client'
 
+import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Plus } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+
+import {
+  type TransactionFormInferType,
+  transactionDefaultValues,
+  transactionFormSchema,
+} from '@/app/transactions/_schemas/add-transaction'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus } from 'lucide-react';
-import { useForm } from 'react-hook-form'
-import type { z } from 'zod'
-import { formSchema } from '../../_schemas/add-transaction'
+import { Form } from '@/components/ui/form'
+
+
+
+import AmountField from './forms/amount'
+import CategoryField from './forms/category'
+import DateField from './forms/date'
+import NoteField from './forms/note'
 
 const AddTransactionForm = () => {
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: '',
-    },
+  const [open, setOpen] = useState(false)
+
+  const form = useForm<TransactionFormInferType>({
+    resolver: zodResolver(transactionFormSchema),
+    defaultValues: transactionDefaultValues,
+    mode: "onChange"
   })
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  const handleSubmit = async (values: TransactionFormInferType) => {
+    console.log('Form submitted:', values)
+
+    form.reset()
+    setOpen(false)
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="cursor-pointer">
-          <Plus />Add
+          <Plus />
+          Add
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add Transaction</DialogTitle>
+          <DialogDescription className="hidden">
+            Fill in the form below to add a new transaction.
+          </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormDescription>This is your public display name.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Submit</Button>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+            <div className="grid grid-cols-2 gap-4">
+              <DateField />
+              <CategoryField />
+            </div>
+            <AmountField />
+            <NoteField />
+
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button
+                type="submit"
+                disabled={!form.formState.isValid || form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? 'Saving…' : 'Submit'}
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

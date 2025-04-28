@@ -1,5 +1,6 @@
 import { DataTable } from '@/components/tables'
 import type { Transaction } from '@/types/transaction'
+
 import type { ColumnDef } from '@tanstack/react-table'
 
 // TODO: 実際のAPIに変更する
