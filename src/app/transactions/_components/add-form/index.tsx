@@ -24,8 +24,6 @@ import {
 } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
 
-
-
 import AmountField from './forms/amount'
 import CategoryField from './forms/category'
 import DateField from './forms/date'

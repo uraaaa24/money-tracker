@@ -43,7 +43,7 @@ const eslintConfig = [
             { pattern: '@/**', group: 'internal' },
           ],
           pathGroupsExcludedImportTypes: ['builtin'],
-          'newlines-between': 'always',           // ← グループ間 1 行空ける
+          'newlines-between': 'always',
           alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],
