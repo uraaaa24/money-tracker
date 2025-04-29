@@ -13,6 +13,7 @@ clerk-backend-api = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
 requests = "*"
+alembic = "*"
 
 [dev-packages]
 black = "*"
@@ -20,7 +21,6 @@ isort = "*"
 
 [requires]
 python_version = "3.11"
-python_full_version = "3.11.11"
 
 [scripts]
 dev = "uvicorn app.main:app --reload"

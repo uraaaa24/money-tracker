@@ -7,7 +7,7 @@ from app.schemas.category import CategoryType
 
 class ExpenseResponse(BaseModel):
     id: int = Field(..., description="支出の一意なID")
-    user_id: int = Field(..., description="Clerkユーザーの内部ID")
+    user_id: str = Field(..., description="Clerkユーザーの内部ID")
     amount: float = Field(..., gt=0, description="支出の金額（円）")
     category: CategoryType = Field(
         ..., description="支出のカテゴリ（例: food, shopping）"
