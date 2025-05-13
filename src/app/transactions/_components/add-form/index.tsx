@@ -27,10 +27,15 @@ import { Form } from '@/components/ui/form'
 import AmountField from './forms/amount'
 import CategoryField from './forms/category'
 import DateField from './forms/date'
+import NameField from './forms/name'
 import NoteField from './forms/note'
+import { useCreateTransaction, useGetTransactions } from '../../_hooks/use-transactions'
 
 const AddTransactionForm = () => {
   const [open, setOpen] = useState(false)
+
+  const { isLoading, error, createTransaction } = useCreateTransaction()
+  const { mutate } = useGetTransactions()
 
   const form = useForm<TransactionFormInferType>({
     resolver: zodResolver(transactionFormSchema),
@@ -38,10 +43,10 @@ const AddTransactionForm = () => {
   })
 
   const handleSubmit = async (values: TransactionFormInferType) => {
-    console.log('Form submitted:', values)
-
+    createTransaction(values)
     form.reset()
     setOpen(false)
+    await mutate()
   }
 
   return (
@@ -67,7 +72,10 @@ const AddTransactionForm = () => {
               <DateField />
               <CategoryField />
             </div>
-            <AmountField />
+            <div className="grid grid-cols-2 gap-4">
+              <NameField />
+              <AmountField />
+            </div>
             <NoteField />
 
             <DialogFooter>

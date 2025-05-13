@@ -9,7 +9,8 @@ const dummy_categories = [
   { value: 'transportation', label: 'Transportation' },
   { value: 'entertainment', label: 'Entertainment' },
   { value: 'utilities', label: 'Utilities' },
-  { value: 'other', label: 'Other' },
+  { value: 'health', label: 'Health' },
+  { value: 'education', label: 'Education' },
 ]
 
 const CategoryField = () => {

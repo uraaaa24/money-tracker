@@ -5,6 +5,7 @@ import { z } from "zod"
  */
 export const TransactionFormNames = {
   date: "date",
+  name: "name",
   amount: "amount",
   category: "category",
   note: "note",
@@ -18,6 +19,9 @@ export const transactionFormSchema = z.object({
     required_error: "日付を入力してください",
     invalid_type_error: "日付が不正です",
   }),
+  [TransactionFormNames.name]: z
+    .string()
+    .optional(),
   [TransactionFormNames.amount]: z.string()
     .refine((value) => Number(value) > 0, {
       message: "金額は0より大きい値を入力してください",
@@ -39,6 +43,7 @@ export type TransactionFormInferType = z.infer<typeof transactionFormSchema>
  */
 export const transactionDefaultValues: TransactionFormInferType = {
   [TransactionFormNames.date]: new Date(),
+  [TransactionFormNames.name]: "",
   [TransactionFormNames.amount]: "",
   [TransactionFormNames.category]: "",
   [TransactionFormNames.note]: undefined,

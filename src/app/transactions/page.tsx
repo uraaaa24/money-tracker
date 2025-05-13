@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const TransactionsPage = async () => {
   return (
-    <AppLayout title="Transactions Page">
+    <AppLayout title="Transactions">
       <div className="flex justify-end mb-4">
         <AddTransactionForm />
       </div>
