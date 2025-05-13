@@ -33,7 +33,7 @@ def get_public_key(kid) -> str:
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
-) -> dict:
+) -> str:
     """
     Decode the JWT token using the public key.
     """
@@ -48,11 +48,12 @@ def get_current_user(
             token,
             public_key,
             algorithms=["RS256"],
-            audience="money-tracker-api",
+            audience=["money-tracker-api"],
             issuer=settings.CLERK_ISSUER,
         )
 
-        return payload
+        user_id = payload["sub"]
+        return user_id
     except jwt.ExpiredSignatureError:
         raise Exception("Token has expired")
     except jwt.InvalidTokenError:

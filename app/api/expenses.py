@@ -6,8 +6,8 @@ from requests import Session
 from app.core.auth import get_current_user
 from app.core.db import get_db
 from app.schemas.common import ListResponse
-from app.schemas.expense import ExpenseResponse
-from app.services.expense_service import get_expenses_by_user_id
+from app.schemas.expense import CreateExpenseRequest, ExpenseResponse
+from app.services.expense_service import get_expenses_by_user_id, post_expense
 
 
 router = APIRouter()
@@ -23,6 +23,26 @@ def get_expenses(user: str = Depends(get_current_user), db: Session = Depends(ge
     ユーザーの支出を取得する
     """
     user_id = user
-    expenses = get_expenses_by_user_id(db, "test_user_1")
+    expenses = get_expenses_by_user_id(db, user_id)
 
     return expenses
+
+
+@router.post(
+    "/expenses",
+    tags=["expenses"],
+    response_model=ExpenseResponse,
+)
+def create_expense(
+    expense_data: CreateExpenseRequest,
+    user_id: str = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    ユーザーの支出を作成する
+    """
+    data = expense_data.model_dump()
+    data["user_id"] = user_id
+
+    expense = post_expense(db, data)
+    return expense

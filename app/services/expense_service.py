@@ -19,3 +19,17 @@ def get_expenses_by_user_id(session: AsyncSession, user_id: str):
     expenses = result.scalars().all()
 
     return expenses
+
+
+def post_expense(
+    session: AsyncSession,
+    create_expense_data: dict,
+):
+    """
+    支出を作成する
+    """
+    expense = Expense(**create_expense_data)
+    session.add(expense)
+    session.commit()
+    session.refresh(expense)
+    return expense
