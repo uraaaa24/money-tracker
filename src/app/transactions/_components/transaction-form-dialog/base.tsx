@@ -33,9 +33,8 @@ type TransactionFormDialogProps = {
   trigger: React.ReactNode
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
-  initialValues: TransactionFormInferType
+  initialValues?: TransactionFormInferType
   onSubmit: (values: TransactionFormInferType) => Promise<void>
-  mode: 'create' | 'edit'
 }
 const TransactionFormDialog = ({
   trigger,
@@ -43,11 +42,13 @@ const TransactionFormDialog = ({
   setOpen,
   initialValues,
   onSubmit,
-  mode,
 }: TransactionFormDialogProps) => {
+  const isEdit = Boolean(initialValues)
+  const defaultValues = isEdit ? initialValues : transactionDefaultValues
+
   const form = useForm<TransactionFormInferType>({
     resolver: zodResolver(transactionFormSchema),
-    defaultValues: transactionDefaultValues,
+    defaultValues,
   })
 
   const handleSubmit = async (values: TransactionFormInferType) => {
@@ -64,9 +65,9 @@ const TransactionFormDialog = ({
         <DialogHeader>
           <DialogTitle>Add Transaction</DialogTitle>
           <DialogDescription className="hidden">
-            {mode === 'create'
-              ? 'Fill in the form below to add a new transaction.'
-              : 'Update the fields below and save your changes.'}
+            {isEdit
+              ? 'Update the fields below and save your changes.'
+              : 'Fill in the form below to add a new transaction.'}
           </DialogDescription>
         </DialogHeader>
 
@@ -84,15 +85,16 @@ const TransactionFormDialog = ({
 
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="outline">
+                <Button type="button" variant="outline" className='cursor-pointer'>
                   Cancel
                 </Button>
               </DialogClose>
               <Button
                 type="submit"
                 disabled={!form.formState.isValid || form.formState.isSubmitting}
+                className='cursor-pointer'
               >
-                {form.formState.isSubmitting ? 'Saving…' : mode === 'create' ? 'Submit' : 'Update'}
+                {form.formState.isSubmitting ? 'Saving…' : isEdit ? 'Update' : 'Submit'}
               </Button>
             </DialogFooter>
           </form>

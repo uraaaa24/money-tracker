@@ -1,6 +1,6 @@
 import AppLayout from '@/components/layouts/app-layout'
 
-import AddTransactionButton from './_components/transaction-form-dialog/add'
+import AddTransactionButton from './_components/transaction-form-dialog/add-transaction'
 import TransactionTable from './_components/transaction-table'
 
 import type { Metadata } from 'next'

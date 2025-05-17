@@ -16,10 +16,11 @@ const NoteField = () => {
           <FormLabel>Note</FormLabel>
           <FormControl>
             <Textarea
+              {...field}
               placeholder="Enter note"
               maxLength={200}
+              value={field.value ?? ''}
               className="resize-none"
-              {...field}
             />
           </FormControl>
           <FormMessage />

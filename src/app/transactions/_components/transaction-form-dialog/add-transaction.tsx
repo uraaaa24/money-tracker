@@ -8,13 +8,11 @@ import {
   useCreateTransaction,
   useGetTransactions,
 } from '@/app/transactions/_hooks/use-transactions'
-import {
-  transactionDefaultValues,
-  type TransactionFormInferType,
-} from '@/app/transactions/_schemas/add-transaction'
+import type { TransactionFormInferType } from '@/app/transactions/_schemas/add-transaction'
 import { Button } from '@/components/ui/button'
 
-import TransactionFormDialog from '..'
+import TransactionFormDialog from './base'
+
 
 const AddTransactionButton = () => {
   const [open, setOpen] = useState(false)
@@ -26,19 +24,19 @@ const AddTransactionButton = () => {
     mutate()
   }
 
-  return <TransactionFormDialog
-    trigger={
-      <Button variant="outline" className="cursor-pointer">
-        <Plus />
-        Add
-      </Button>
-    }
-    open={open}
-    setOpen={setOpen}
-    mode="create"
-    initialValues={transactionDefaultValues}
-    onSubmit={handleCreate}
-  />
+  return (
+    <TransactionFormDialog
+      trigger={
+        <Button variant="outline" className="cursor-pointer">
+          <Plus />
+          Add
+        </Button>
+      }
+      open={open}
+      setOpen={setOpen}
+      onSubmit={handleCreate}
+    />
+  )
 }
 
 export default AddTransactionButton
