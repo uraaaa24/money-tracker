@@ -4,11 +4,16 @@ from requests import Session
 
 from app.core.auth import get_current_user
 from app.core.db import get_db
-from app.schemas.expense import CreateExpenseRequest, ExpenseResponse
+from app.schemas.expense import (
+    CreateExpenseRequest,
+    ExpenseResponse,
+    UpdateExpenseRequest,
+)
 from app.services.expense_service import (
     delete_expense_by_user_id_and_expense_id,
     get_expenses_by_user_id,
     post_expense,
+    put_expense,
 )
 
 
@@ -65,3 +70,24 @@ def delete_expense(
     """
     result = delete_expense_by_user_id_and_expense_id(db, user_id, expense_id)
     return result
+
+
+@router.put(
+    "/expenses/{expense_id}",
+    tags=["expenses"],
+    response_model=ExpenseResponse,
+)
+def update_expense(
+    expense_id: int,
+    expense_data: UpdateExpenseRequest,
+    user_id: str = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """
+    ユーザーの支出を更新する
+    """
+    data = expense_data.model_dump()
+    data["user_id"] = user_id
+
+    expense = put_expense(db, user_id, expense_id, data)
+    return expense

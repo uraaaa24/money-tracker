@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.auth import get_current_user
 from app.core.db import get_db
-from app.api import expenses
+from app.routers import expenses
 
 
 app = FastAPI()

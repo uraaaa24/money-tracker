@@ -47,3 +47,7 @@ class CreateExpenseRequest(BaseModel):
     )
     note: Optional[str] = Field(None, description="任意のメモや説明")
     date: Date = Field(..., description="支出が発生した日付")
+
+
+class UpdateExpenseRequest(CreateExpenseRequest):
+    pass

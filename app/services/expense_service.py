@@ -53,3 +53,27 @@ def delete_expense_by_user_id_and_expense_id(
     session.delete(expense)
     session.commit()
     return True
+
+
+def put_expense(
+    session: AsyncSession,
+    user_id: str,
+    expense_id: int,
+    update_data: dict,
+):
+    """
+    ユーザーIDと支出IDを指定して、その支出を更新する
+    """
+    stmt = select(Expense).where(Expense.user_id == user_id, Expense.id == expense_id)
+    result = session.execute(stmt)
+    expense = result.scalars().first()
+
+    if not expense:
+        return False
+
+    for key, value in update_data.items():
+        setattr(expense, key, value)
+
+    session.commit()
+    session.refresh(expense)
+    return expense
