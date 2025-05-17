@@ -33,3 +33,23 @@ def post_expense(
     session.commit()
     session.refresh(expense)
     return expense
+
+
+def delete_expense_by_user_id_and_expense_id(
+    session: AsyncSession,
+    user_id: str,
+    expense_id: int,
+):
+    """
+    ユーザーIDと支出IDを指定して、その支出を削除する
+    """
+    stmt = select(Expense).where(Expense.user_id == user_id, Expense.id == expense_id)
+    result = session.execute(stmt)
+    expense = result.scalars().first()
+
+    if not expense:
+        return False
+
+    session.delete(expense)
+    session.commit()
+    return True
