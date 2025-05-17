@@ -13,8 +13,8 @@ type AppLayoutProps = {
 
 const AppLayout = ({ title, children }: AppLayoutProps) => {
   return (
-    <div className="min-h-screen text-foreground">
-      <header className="px-8 py-8 flex items-center justify-between">
+    <div className="min-h-screen text-foreground px-20">
+      <header className="py-8 flex items-center justify-between">
         <h1 className="text-2xl font-semibold">{title}</h1>
         <div className="flex items-center">
           <SignedIn>
@@ -40,7 +40,7 @@ const AppLayout = ({ title, children }: AppLayoutProps) => {
         </div>
       </header>
 
-      <main className="px-10">
+      <main>
         {children}
       </main>
     </div>

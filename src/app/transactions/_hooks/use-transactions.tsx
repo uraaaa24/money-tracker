@@ -11,7 +11,7 @@ import { isError } from '@/lib/type-guard'
 import type { TransactionFormInferType } from '../_schemas/add-transaction'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-const PREFIX = '/expenses'
+const PREFIX = '/transactions'
 
 const API_TRANSACTION_URL = `${API_URL}${PREFIX}`
 
@@ -109,6 +109,51 @@ export const useDeleteTransaction = () => {
 
   return {
     deleteTransaction,
+    isLoading,
+    error
+  }
+}
+
+export const useUpdateTransaction = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<null | Error>(null)
+
+  const { makeAuthHeader } = useAuthHeader()
+
+  const updateTransaction = async (id: number, data: TransactionFormInferType) => {
+    setIsLoading(true)
+    setError(null)
+
+    const body = {
+      ...data,
+      date: data.date.toISOString().split('T')[0],
+    }
+
+    try {
+      const res = await fetch(`${API_TRANSACTION_URL}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: await makeAuthHeader(),
+      })
+
+      if (!res.ok) {
+        throw new Error('Failed to update transaction')
+      }
+
+      return res.json()
+    } catch (err) {
+      if (isError(err)) {
+        setError(err)
+      } else {
+        setError(new Error('An unknown error occurred'))
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return {
+    updateTransaction,
     isLoading,
     error
   }

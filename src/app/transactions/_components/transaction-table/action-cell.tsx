@@ -5,8 +5,6 @@ import type { Transaction } from '@/types/transaction'
 import { useDeleteTransaction, useGetTransactions } from '../../_hooks/use-transactions'
 import EditTransactionButton from '../transaction-form-dialog/edit-transaction'
 
-import type { TransactionFormInferType } from '../../_schemas/add-transaction'
-
 type TransactionTableActionCellProps = {
   transaction: Transaction
 }
@@ -16,12 +14,6 @@ const TransactionTableActionCell = ({ transaction }: TransactionTableActionCellP
 
   const { deleteTransaction } = useDeleteTransaction()
 
-  const transactionFormValues: TransactionFormInferType = {
-    ...transaction,
-    amount: String(transaction.amount),
-    date: new Date(transaction.date),
-  }
-
   const onDelete = async (transactionId: number) => {
     await deleteTransaction(transactionId)
     mutate()
@@ -29,7 +21,7 @@ const TransactionTableActionCell = ({ transaction }: TransactionTableActionCellP
 
   return (
     <ActionCell
-      editButton={<EditTransactionButton transaction={transactionFormValues} />}
+      editButton={<EditTransactionButton transaction={transaction} />}
       deleteButton={<ActionCellDeleteButton itemId={transaction.id} onDelete={onDelete} />}
     />
   )
