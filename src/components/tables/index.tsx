@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { isError } from '@/lib/type-guard'
 
 import { Skeleton } from '../ui/skeleton'
 
@@ -74,9 +75,10 @@ const DataTable = <TData, TValue>({
         ) : error ? (
           <TableRow>
             <TableCell colSpan={COL_SPAN} className="h-24 text-center text-destructive">
-              {typeof error === 'string'
-                ? error
-                : error?.message ?? 'Failed to load data.'}
+              {isError(error)
+                ? error.message
+                : 'Something went wrong. Please try again later.'
+              }
             </TableCell>
           </TableRow>
         ) : table.getRowModel().rows?.length ? (
