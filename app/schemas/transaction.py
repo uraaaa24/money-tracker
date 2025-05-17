@@ -18,7 +18,7 @@ class TransactionType(StrEnum):
     income = "income"
 
 
-class ExpenseResponse(BaseModel):
+class TransactionResponse(BaseModel):
     id: int = Field(..., description="支出の一意なID")
     user_id: str = Field(..., description="Clerkユーザーの内部ID")
     name: str | None = Field(None, description="支出の名前")
@@ -35,7 +35,7 @@ class ExpenseResponse(BaseModel):
     updated_at: datetime = Field(..., description="レコード最終更新日時")
 
 
-class CreateExpenseRequest(BaseModel):
+class CreateTransactionRequest(BaseModel):
     user_id: str | None = Field(None, exclude=True)
     name: str | None = Field(None, description="支出の名前")
     type: str = Field(
@@ -49,5 +49,5 @@ class CreateExpenseRequest(BaseModel):
     date: Date = Field(..., description="支出が発生した日付")
 
 
-class UpdateExpenseRequest(CreateExpenseRequest):
+class UpdateTransactionRequest(CreateTransactionRequest):
     pass

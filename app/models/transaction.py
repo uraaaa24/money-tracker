@@ -18,7 +18,8 @@ class TransactionType(StrEnum):
     income = "income"
 
 
-class Expense(Base):
+class Transaction(Base):
+    # TODO: テーブル名を `transactions` に変更する
     __tablename__ = "expenses"
 
     id = Column(Integer, primary_key=True, index=True)
