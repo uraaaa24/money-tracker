@@ -19,8 +19,8 @@ const TransactionTableActionCell = ({
     console.log('Edit transaction:', transaction)
   }
 
-  const onDelete = (transactionId: number) => {
-    deleteTransaction(transactionId)
+  const onDelete = async (transactionId: number) => {
+    await deleteTransaction(transactionId)
     mutate()
   }
 

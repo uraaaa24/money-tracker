@@ -34,7 +34,7 @@ import { useCreateTransaction, useGetTransactions } from '../../_hooks/use-trans
 const AddTransactionForm = () => {
   const [open, setOpen] = useState(false)
 
-  const { isLoading, error, createTransaction } = useCreateTransaction()
+  const { createTransaction } = useCreateTransaction()
   const { mutate } = useGetTransactions()
 
   const form = useForm<TransactionFormInferType>({
@@ -43,10 +43,10 @@ const AddTransactionForm = () => {
   })
 
   const handleSubmit = async (values: TransactionFormInferType) => {
-    createTransaction(values)
+    await createTransaction(values)
     form.reset()
     setOpen(false)
-    await mutate()
+    mutate()
   }
 
   return (
