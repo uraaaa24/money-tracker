@@ -17,6 +17,7 @@ const TransactionTableActionCell = ({
   const onEdit = (transaction: Transaction) => {
     // Handle edit action
     console.log('Edit transaction:', transaction)
+    mutate()
   }
 
   const onDelete = async (transactionId: number) => {
@@ -24,7 +25,9 @@ const TransactionTableActionCell = ({
     mutate()
   }
 
-  return <ActionCell item={transaction} onEdit={onEdit} onDelete={onDelete} />
+  return <ActionCell item={transaction}
+    onEdit={onEdit}
+    onDelete={onDelete} />
 }
 
 export default TransactionTableActionCell

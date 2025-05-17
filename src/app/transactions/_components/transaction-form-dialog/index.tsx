@@ -1,9 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
 import {
@@ -29,45 +28,50 @@ import CategoryField from './forms/category'
 import DateField from './forms/date'
 import NameField from './forms/name'
 import NoteField from './forms/note'
-import { useCreateTransaction, useGetTransactions } from '../../_hooks/use-transactions'
 
-const AddTransactionForm = () => {
-  const [open, setOpen] = useState(false)
-
-  const { createTransaction } = useCreateTransaction()
-  const { mutate } = useGetTransactions()
-
+type TransactionFormDialogProps = {
+  trigger: React.ReactNode
+  open: boolean
+  setOpen: Dispatch<SetStateAction<boolean>>
+  initialValues: TransactionFormInferType
+  onSubmit: (values: TransactionFormInferType) => Promise<void>
+  mode: 'create' | 'edit'
+}
+const TransactionFormDialog = ({
+  trigger,
+  open,
+  setOpen,
+  initialValues,
+  onSubmit,
+  mode,
+}: TransactionFormDialogProps) => {
   const form = useForm<TransactionFormInferType>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: transactionDefaultValues,
   })
 
   const handleSubmit = async (values: TransactionFormInferType) => {
-    await createTransaction(values)
-    form.reset()
+    await onSubmit(values)
+    form.reset(initialValues)
     setOpen(false)
-    mutate()
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="cursor-pointer">
-          <Plus />
-          Add
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       <DialogContent className="w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add Transaction</DialogTitle>
           <DialogDescription className="hidden">
-            Fill in the form below to add a new transaction.
+            {mode === 'create'
+              ? 'Fill in the form below to add a new transaction.'
+              : 'Update the fields below and save your changes.'}
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <DateField />
               <CategoryField />
@@ -88,7 +92,7 @@ const AddTransactionForm = () => {
                 type="submit"
                 disabled={!form.formState.isValid || form.formState.isSubmitting}
               >
-                {form.formState.isSubmitting ? 'Saving…' : 'Submit'}
+                {form.formState.isSubmitting ? 'Saving…' : mode === 'create' ? 'Submit' : 'Update'}
               </Button>
             </DialogFooter>
           </form>
@@ -98,4 +102,4 @@ const AddTransactionForm = () => {
   )
 }
 
-export default AddTransactionForm
+export default TransactionFormDialog

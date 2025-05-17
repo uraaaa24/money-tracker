@@ -41,14 +41,10 @@ const TransactionTable = () => {
     },
   ]
 
-  return (
-    <div className="border rounded-lg">
-      <DataTable columns={columns} data={transactions}
-        isLoading={isLoading}
-        error={error}
-      />
-    </div>
-  )
+  return <DataTable columns={columns} data={transactions}
+    isLoading={isLoading}
+    error={error}
+  />
 }
 
 export default TransactionTable

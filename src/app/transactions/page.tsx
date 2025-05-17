@@ -1,6 +1,6 @@
 import AppLayout from '@/components/layouts/app-layout'
 
-import AddTransactionForm from './_components/add-form'
+import AddTransactionButton from './_components/transaction-form-dialog/add'
 import TransactionTable from './_components/transaction-table'
 
 import type { Metadata } from 'next'
@@ -14,11 +14,9 @@ const TransactionsPage = async () => {
   return (
     <AppLayout title="Transactions">
       <div className="flex justify-end mb-4">
-        <AddTransactionForm />
+        <AddTransactionButton />
       </div>
-      <div className="bg-white rounded-lg">
-        <TransactionTable />
-      </div>
+      <TransactionTable />
     </AppLayout>
   )
 }
