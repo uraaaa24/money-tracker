@@ -29,6 +29,7 @@ export const useGetTransactions = () => {
   }
 }
 
+// TODO: useSWRMutationを使うようにする
 export const useCreateTransaction = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<null | Error>(null)
@@ -71,5 +72,44 @@ export const useCreateTransaction = () => {
     createTransaction,
     isLoading,
     error,
+  }
+}
+
+export const useDeleteTransaction = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<null | Error>(null)
+
+  const { makeAuthHeader } = useAuthHeader()
+
+  const deleteTransaction = async (id: number) => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch(`${API_TRANSACTION_URL}/${id}`, {
+        method: 'DELETE',
+        headers: await makeAuthHeader(),
+      })
+
+      if (!res.ok) {
+        throw new Error('Failed to delete transaction')
+      }
+
+      return res.json()
+    } catch (err) {
+      if (isError(err)) {
+        setError(err)
+      } else {
+        setError(new Error('An unknown error occurred'))
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return {
+    deleteTransaction,
+    isLoading,
+    error
   }
 }

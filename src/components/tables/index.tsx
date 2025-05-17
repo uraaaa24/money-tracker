@@ -11,15 +11,23 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-interface DataTableProps<TData, TValue> {
+import { Skeleton } from '../ui/skeleton'
+
+const COL_SPAN = 10
+
+type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  isLoading: boolean
+  error: Error
 }
 
-export function DataTable<TData, TValue>({
+const DataTable = <TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  isLoading,
+  error,
+}: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
@@ -28,12 +36,13 @@ export function DataTable<TData, TValue>({
 
   return (
     <Table>
+      {/* Header */}
       <TableHeader>
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id} className='pointer-events-none'>
             {headerGroup.headers.map((header) => {
               return (
-                <TableHead key={header.id} className='p-4 text-gray-500'>
+                <TableHead key={header.id} className='py-2 px-6 text-gray-500'>
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
@@ -43,12 +52,38 @@ export function DataTable<TData, TValue>({
           </TableRow>
         ))}
       </TableHeader>
+
+      {/* Body */}
       <TableBody>
-        {table.getRowModel().rows?.length ? (
+        {isLoading ? (
+          Array.from({ length: COL_SPAN }, (_, i) => {
+            const uniqueKey = `loading-${i}`
+            return (
+              <TableRow key={uniqueKey}>
+                {columns.map((col, colIdx) => (
+                  <TableCell
+                    key={String(col.id ?? colIdx)}
+                    className="py-2 px-6"
+                  >
+                    <Skeleton className="h-9 w-full" />
+                  </TableCell>
+                ))}
+              </TableRow>
+            )
+          })
+        ) : error ? (
+          <TableRow>
+            <TableCell colSpan={COL_SPAN} className="h-24 text-center text-destructive">
+              {typeof error === 'string'
+                ? error
+                : error?.message ?? 'Failed to load data.'}
+            </TableCell>
+          </TableRow>
+        ) : table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
             <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
               {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id} className='p-4'>
+                <TableCell key={cell.id} className='py-2 px-6'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
@@ -65,3 +100,5 @@ export function DataTable<TData, TValue>({
     </Table>
   )
 }
+
+export default DataTable
