@@ -19,8 +19,7 @@ class TransactionType(StrEnum):
 
 
 class Transaction(Base):
-    # TODO: テーブル名を `transactions` に変更する
-    __tablename__ = "expenses"
+    __tablename__ = "transactions"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String, nullable=False, index=True)
