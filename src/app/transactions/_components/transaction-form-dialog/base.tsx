@@ -57,6 +57,11 @@ const TransactionFormDialog = ({
     setOpen(false)
   }
 
+  const handleClose = () => {
+    setOpen(false)
+    form.reset(initialValues)
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -84,7 +89,7 @@ const TransactionFormDialog = ({
             <NoteField />
 
             <DialogFooter>
-              <DialogClose asChild>
+              <DialogClose asChild onClick={handleClose}>
                 <Button type="button" variant="outline" className='cursor-pointer'>
                   Cancel
                 </Button>

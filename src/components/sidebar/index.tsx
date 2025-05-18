@@ -1,5 +1,6 @@
 'use client'
 
+import { Leaf } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -13,7 +14,10 @@ const Sidebar = () => {
   return (
     <aside className="h-screen w-64 border-r bg-white px-6 py-8">
       <div className="flex items-center justify-between mb-6 h-10 px-2">
-        <div className="text-xl font-bold leading-none">Money Tracker</div>
+        <div className="text-xl font-bold leading-none flex items-center gap-2">
+          <Leaf className="h-6 w-6 text-green-500" />
+          Money Tracker
+        </div>
       </div>
 
       <nav className="flex flex-col space-y-1">

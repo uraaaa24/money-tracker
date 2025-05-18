@@ -5,13 +5,12 @@ import type { Transaction } from '@/types/transaction'
 import { useDeleteTransaction, useGetTransactions } from '../../_hooks/use-transactions'
 import EditTransactionButton from '../transaction-form-dialog/edit-transaction'
 
-type TransactionTableActionCellProps = {
-  transaction: Transaction
+type DeleteTransactionButtonProps = {
+  transactionId: number
 }
 
-const TransactionTableActionCell = ({ transaction }: TransactionTableActionCellProps) => {
+const DeleteTransactionButton = ({ transactionId }: DeleteTransactionButtonProps) => {
   const { mutate } = useGetTransactions()
-
   const { deleteTransaction } = useDeleteTransaction()
 
   const onDelete = async (transactionId: number) => {
@@ -20,9 +19,26 @@ const TransactionTableActionCell = ({ transaction }: TransactionTableActionCellP
   }
 
   return (
+    <ActionCellDeleteButton
+      itemId={transactionId}
+      onDelete={() => onDelete(transactionId)}
+    />
+  )
+}
+
+type TransactionTableActionCellProps = {
+  transaction: Transaction
+}
+
+const TransactionTableActionCell = ({ transaction }: TransactionTableActionCellProps) => {
+  return (
     <ActionCell
-      editButton={<EditTransactionButton transaction={transaction} />}
-      deleteButton={<ActionCellDeleteButton itemId={transaction.id} onDelete={onDelete} />}
+      editButton={
+        <EditTransactionButton transaction={transaction} />
+      }
+      deleteButton={
+        <DeleteTransactionButton transactionId={transaction.id} />
+      }
     />
   )
 }
