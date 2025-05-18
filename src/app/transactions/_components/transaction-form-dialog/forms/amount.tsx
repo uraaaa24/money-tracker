@@ -16,7 +16,9 @@ const AmountField = () => {
       name={TransactionFormNames.amount}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Amount</FormLabel>
+          <FormLabel>
+            Amount<span className="-ml-1.5 text-red-500">*</span>
+          </FormLabel>
           <FormControl>
             <Input
               {...field}

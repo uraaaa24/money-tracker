@@ -5,10 +5,9 @@ import { z } from "zod"
  */
 export const TransactionFormNames = {
   date: "date",
-  name: "name",
+  memo: "memo",
   amount: "amount",
   category: "category",
-  note: "note",
 } as const
 
 /**
@@ -19,7 +18,7 @@ export const transactionFormSchema = z.object({
     required_error: "日付を入力してください",
     invalid_type_error: "日付が不正です",
   }),
-  [TransactionFormNames.name]: z
+  [TransactionFormNames.memo]: z
     .string()
     .optional(),
   [TransactionFormNames.amount]: z.string()
@@ -30,7 +29,6 @@ export const transactionFormSchema = z.object({
     .string()
     .min(2, { message: "カテゴリ名が短すぎます" })
     .max(50),
-  [TransactionFormNames.note]: z.string().optional(),
 })
 
 /**
@@ -43,8 +41,7 @@ export type TransactionFormInferType = z.infer<typeof transactionFormSchema>
  */
 export const transactionDefaultValues: TransactionFormInferType = {
   [TransactionFormNames.date]: new Date(),
-  [TransactionFormNames.name]: "",
+  [TransactionFormNames.memo]: "",
   [TransactionFormNames.amount]: "",
   [TransactionFormNames.category]: "",
-  [TransactionFormNames.note]: undefined,
 }

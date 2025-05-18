@@ -2,25 +2,24 @@ import { useFormContext } from 'react-hook-form'
 
 import { TransactionFormNames } from '@/app/transactions/_schemas/add-transaction'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Textarea } from '@/components/ui/textarea'
+import { Input } from '@/components/ui/input'
 
-const NoteField = () => {
+const MemoField = () => {
   const { control } = useFormContext()
 
   return (
     <FormField
       control={control}
-      name={TransactionFormNames.note}
+      name={TransactionFormNames.memo}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Note</FormLabel>
+          <FormLabel>Memo</FormLabel>
           <FormControl>
-            <Textarea
+            <Input
               {...field}
-              placeholder="Enter note"
-              maxLength={200}
+              type="text"
               value={field.value ?? ''}
-              className="resize-none"
+              placeholder="Enter memo"
             />
           </FormControl>
           <FormMessage />
@@ -30,4 +29,4 @@ const NoteField = () => {
   )
 }
 
-export default NoteField
+export default MemoField

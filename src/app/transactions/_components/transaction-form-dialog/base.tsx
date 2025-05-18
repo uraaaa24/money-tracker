@@ -26,8 +26,7 @@ import { Form } from '@/components/ui/form'
 import AmountField from './forms/amount'
 import CategoryField from './forms/category'
 import DateField from './forms/date'
-import NameField from './forms/name'
-import NoteField from './forms/note'
+import MemoField from './forms/memo'
 
 type TransactionFormDialogProps = {
   trigger: React.ReactNode
@@ -82,11 +81,8 @@ const TransactionFormDialog = ({
               <DateField />
               <CategoryField />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <NameField />
-              <AmountField />
-            </div>
-            <NoteField />
+            <AmountField />
+            <MemoField />
 
             <DialogFooter>
               <DialogClose asChild onClick={handleClose}>

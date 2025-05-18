@@ -17,8 +17,10 @@ const DateField = () => {
       control={control}
       name={TransactionFormNames.date}
       render={({ field }) => (
-        <FormItem>
-          <FormLabel>Date</FormLabel>
+        <FormItem >
+          <FormLabel>
+            Date<span className="-ml-1.5 text-red-500">*</span>
+          </FormLabel>
           <FormControl>
             <SingleDatePicker
               selected={field.value}

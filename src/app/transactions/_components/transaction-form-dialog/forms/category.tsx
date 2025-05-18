@@ -22,7 +22,9 @@ const CategoryField = () => {
       name={TransactionFormNames.category}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Category</FormLabel>
+          <FormLabel>
+            Category<span className="-ml-1.5 text-red-500">*</span>
+          </FormLabel>
           <FormControl>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <SelectTrigger className="w-full cursor-pointer">

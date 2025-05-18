@@ -17,10 +17,6 @@ const TransactionTable = () => {
       header: 'Date',
     },
     {
-      accessorKey: 'name',
-      header: 'Name',
-    },
-    {
       accessorKey: 'amount',
       header: 'Amount',
     },
@@ -29,8 +25,8 @@ const TransactionTable = () => {
       header: 'Category',
     },
     {
-      accessorKey: 'note',
-      header: 'Note',
+      accessorKey: 'memo',
+      header: 'Memo',
     },
     {
       id: 'actions',
