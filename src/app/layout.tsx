@@ -3,7 +3,7 @@ import {
 } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 
-import Sidebar from '@/components/sidebar'
+import Sidebar from '@/components/layouts/sidebar'
 
 import type { Metadata } from 'next'
 import '../styles/globals.css'
