@@ -1,8 +1,9 @@
 import { useFormContext } from 'react-hook-form'
 
-import { TransactionFormNames } from '@/app/transactions/_schemas/add-transaction'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+
+import { TransactionFormNames } from '../../../../../schemas/add-transaction'
 
 const MemoField = () => {
   const { control } = useFormContext()

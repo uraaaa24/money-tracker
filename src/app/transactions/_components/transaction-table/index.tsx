@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
 import DataTable from '@/components/tables'
+import { useGetTransactions } from '@/hooks/api/use-transactions'
 import type { Transaction } from '@/types/transaction'
 
 import TransactionTableActionCell from './action-cell'
-import { useGetTransactions } from '../../_hooks/use-transactions'
 
 import type { ColumnDef } from '@tanstack/react-table'
 
@@ -37,10 +37,7 @@ const TransactionTable = () => {
     },
   ]
 
-  return <DataTable columns={columns} data={transactions}
-    isLoading={isLoading}
-    error={error}
-  />
+  return <DataTable columns={columns} data={transactions} isLoading={isLoading} error={error} />
 }
 
 export default TransactionTable

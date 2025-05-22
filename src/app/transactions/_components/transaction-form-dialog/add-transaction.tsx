@@ -4,14 +4,13 @@ import { useState } from 'react'
 
 import { Plus } from 'lucide-react'
 
-import {
-  useCreateTransaction,
-  useGetTransactions,
-} from '@/app/transactions/_hooks/use-transactions'
-import type { TransactionFormInferType } from '@/app/transactions/_schemas/add-transaction'
+
 import { Button } from '@/components/ui/button'
+import { useCreateTransaction, useGetTransactions } from '@/hooks/api/use-transactions'
 
 import TransactionFormDialog from './base'
+
+import type { TransactionFormInferType } from '../../../../schemas/add-transaction'
 
 
 const AddTransactionButton = () => {

@@ -4,15 +4,14 @@ import { useState } from 'react'
 
 import { Pen } from 'lucide-react'
 
-import {
-  useGetTransactions,
-  useUpdateTransaction,
-} from '@/app/transactions/_hooks/use-transactions'
-import type { TransactionFormInferType } from '@/app/transactions/_schemas/add-transaction'
+
 import { Button } from '@/components/ui/button'
+import { useGetTransactions, useUpdateTransaction } from '@/hooks/api/use-transactions'
 import type { Transaction } from '@/types/transaction'
 
 import TransactionFormDialog from './base'
+
+import type { TransactionFormInferType } from '../../../../schemas/add-transaction'
 
 type EditTransactionButtonProps = {
   transaction: Transaction

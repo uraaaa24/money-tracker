@@ -5,11 +5,6 @@ import type { Dispatch, SetStateAction } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import {
-  type TransactionFormInferType,
-  transactionDefaultValues,
-  transactionFormSchema,
-} from '@/app/transactions/_schemas/add-transaction'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -22,6 +17,11 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
+import {
+  transactionDefaultValues,
+  transactionFormSchema,
+  type TransactionFormInferType
+} from '@/schemas/add-transaction'
 
 import AmountField from './forms/amount'
 import CategoryField from './forms/category'
@@ -86,14 +86,14 @@ const TransactionFormDialog = ({
 
             <DialogFooter>
               <DialogClose asChild onClick={handleClose}>
-                <Button type="button" variant="outline" className='cursor-pointer'>
+                <Button type="button" variant="outline" className="cursor-pointer">
                   Cancel
                 </Button>
               </DialogClose>
               <Button
                 type="submit"
                 disabled={!form.formState.isValid || form.formState.isSubmitting}
-                className='cursor-pointer'
+                className="cursor-pointer"
               >
                 {form.formState.isSubmitting ? 'Saving…' : isEdit ? 'Update' : 'Submit'}
               </Button>

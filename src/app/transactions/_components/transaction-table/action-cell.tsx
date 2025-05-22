@@ -1,8 +1,8 @@
 import ActionCell from '@/components/tables/action-cell'
 import ActionCellDeleteButton from '@/components/tables/actions/delete-button'
+import { useGetTransactions, useDeleteTransaction } from '@/hooks/api/use-transactions'
 import type { Transaction } from '@/types/transaction'
 
-import { useDeleteTransaction, useGetTransactions } from '../../_hooks/use-transactions'
 import EditTransactionButton from '../transaction-form-dialog/edit-transaction'
 
 type DeleteTransactionButtonProps = {

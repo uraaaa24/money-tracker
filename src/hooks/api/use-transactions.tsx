@@ -8,7 +8,7 @@ import { useAuthHeader } from '@/hooks/use-auth-header'
 import { useFetcher } from '@/hooks/use-fetcher'
 import { isError } from '@/lib/type-guard'
 
-import type { TransactionFormInferType } from '../_schemas/add-transaction'
+import type { TransactionFormInferType } from '../../schemas/add-transaction'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 const PREFIX = '/transactions'
@@ -110,7 +110,7 @@ export const useDeleteTransaction = () => {
   return {
     deleteTransaction,
     isLoading,
-    error
+    error,
   }
 }
 
@@ -155,6 +155,6 @@ export const useUpdateTransaction = () => {
   return {
     updateTransaction,
     isLoading,
-    error
+    error,
   }
 }
