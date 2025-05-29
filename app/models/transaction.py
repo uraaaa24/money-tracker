@@ -1,3 +1,4 @@
+from app.common.enums import TransactionType
 from app.core.db import Base
 from enum import StrEnum
 from sqlalchemy import Column, Integer, Float, String, Date, DateTime, Enum as SAEnum
@@ -13,11 +14,6 @@ class CategoryType(StrEnum):
     education = "education"
 
 
-class TransactionType(StrEnum):
-    expense = "expense"
-    income = "income"
-
-
 class Transaction(Base):
     __tablename__ = "transactions"
 
@@ -25,9 +21,7 @@ class Transaction(Base):
     user_id = Column(String, nullable=False, index=True)
     memo = Column(String, nullable=True)
     type = Column(
-        SAEnum(TransactionType),
-        nullable=False,
-        default=TransactionType.expense.value,
+        SAEnum(TransactionType), nullable=False, default=TransactionType.expense.value
     )
     amount = Column(Float, nullable=False)
     category = Column(SAEnum(CategoryType), nullable=False)

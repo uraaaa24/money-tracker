@@ -2,6 +2,8 @@ from enum import StrEnum
 from pydantic import BaseModel, Field
 from datetime import date as Date, datetime
 
+from app.common.enums import TransactionType
+
 
 class CategoryType(StrEnum):
     food = "food"
@@ -12,16 +14,11 @@ class CategoryType(StrEnum):
     education = "education"
 
 
-class TransactionType(StrEnum):
-    expense = "expense"
-    income = "income"
-
-
 class TransactionResponse(BaseModel):
     id: int = Field(..., description="支出の一意なID")
     user_id: str = Field(..., description="Clerkユーザーの内部ID")
     memo: str | None = Field(None, description="支出のメモ")
-    type: str = Field(
+    type: TransactionType = Field(
         TransactionType.expense.value, description="支出の種類（デフォルトはexpense）"
     )
     amount: float = Field(..., gt=0, description="支出の金額（円）")
@@ -36,7 +33,7 @@ class TransactionResponse(BaseModel):
 class CreateTransactionRequest(BaseModel):
     user_id: str | None = Field(None, exclude=True)
     memo: str | None = Field(None, description="支出のメモ")
-    type: str = Field(
+    type: TransactionType = Field(
         TransactionType.expense, description="支出の種類（デフォルトはexpense）"
     )
     amount: float = Field(..., gt=0, description="支出の金額（円）")

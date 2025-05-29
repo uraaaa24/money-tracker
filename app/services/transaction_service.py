@@ -8,7 +8,6 @@ def get_transactions_by_user_id(session: AsyncSession, user_id: str):
     """
     ユーザーIDを指定して、そのユーザーの支出を取得する
     """
-
     stmt = (
         select(Transaction)
         .where(Transaction.user_id == user_id)

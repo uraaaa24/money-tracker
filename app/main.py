@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.auth import get_current_user
 from app.core.db import get_db
-from app.routers import transactions
+from app.routers import categories, transactions
 
 
 app = FastAPI()
@@ -24,6 +24,7 @@ app.add_middleware(
 )
 
 app.include_router(transactions.router)
+app.include_router(categories.router)
 
 
 @app.get("/", tags=["health"])
