@@ -2,8 +2,7 @@ import { useFormContext } from 'react-hook-form'
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-
-import { TransactionFormNames } from '../../../../../schemas/add-transaction'
+import { TransactionFormNames } from '@/schemas/transactions/add-transaction'
 
 const MIN_AMOUNT = 0
 const MAX_AMOUNT = 1000000 // 100万円

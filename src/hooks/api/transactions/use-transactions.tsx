@@ -7,8 +7,9 @@ import useSWR from 'swr'
 import { useAuthHeader } from '@/hooks/use-auth-header'
 import { useFetcher } from '@/hooks/use-fetcher'
 import { isError } from '@/lib/type-guard'
+import type { TransactionFormInferType } from '@/schemas/transactions/add-transaction'
 
-import type { TransactionFormInferType } from '../../schemas/add-transaction'
+import type { CreateTransactionRequestBody, PutTransactionRequestBody } from './transactions.type'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 const PREFIX = '/transactions'
@@ -40,9 +41,12 @@ export const useCreateTransaction = () => {
     setIsLoading(true)
     setError(null)
 
-    const body = {
-      ...data,
+    const body: CreateTransactionRequestBody = {
+      type: data.type,
       date: data.date.toISOString().split('T')[0],
+      category_id: Number(data.categoryId),
+      amount: Number(data.amount),
+      memo: data.memo || '',
     }
 
     try {
@@ -124,9 +128,12 @@ export const useUpdateTransaction = () => {
     setIsLoading(true)
     setError(null)
 
-    const body = {
-      ...data,
+    const body: PutTransactionRequestBody = {
+      type: data.type,
       date: data.date.toISOString().split('T')[0],
+      category_id: Number(data.categoryId),
+      amount: Number(data.amount),
+      memo: data.memo || '',
     }
 
     try {

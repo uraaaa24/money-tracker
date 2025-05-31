@@ -4,14 +4,12 @@ import { useState } from 'react'
 
 import { Pen } from 'lucide-react'
 
-
 import { Button } from '@/components/ui/button'
-import { useGetTransactions, useUpdateTransaction } from '@/hooks/api/use-transactions'
+import { useGetTransactions, useUpdateTransaction } from '@/hooks/api/transactions/use-transactions'
+import type { TransactionFormInferType } from '@/schemas/transactions/add-transaction'
 import type { Transaction } from '@/types/transaction'
 
 import TransactionFormDialog from './base'
-
-import type { TransactionFormInferType } from '../../../../schemas/add-transaction'
 
 type EditTransactionButtonProps = {
   transaction: Transaction
@@ -26,6 +24,7 @@ const EditTransactionButton = ({ transaction }: EditTransactionButtonProps) => {
     ...transaction,
     amount: String(transaction.amount),
     date: new Date(transaction.date),
+    categoryId: String(transaction.category.id),
   }
 
   const handleUpdate = async (values: TransactionFormInferType) => {

@@ -10,17 +10,18 @@ export const TransactionFormNames = {
   date: "date",
   memo: "memo",
   amount: "amount",
-  category: "category",
+  categoryId: "categoryId",
 } as const
 
 /**
  * バリデーションスキーマ
  */
 export const transactionFormSchema = z.object({
-  [TransactionFormNames.type]: z.enum(["income", "expense"], {
-    required_error: "取引種別を選択してください",
-    invalid_type_error: "取引種別が不正です",
-  }),
+  [TransactionFormNames.type]: z
+    .enum([TransactionTypes.EXPENSE, TransactionTypes.INCOME], {
+      required_error: "取引種別を選択してください",
+      invalid_type_error: "取引種別が不正です",
+    }),
   [TransactionFormNames.date]: z.date({
     required_error: "日付を入力してください",
     invalid_type_error: "日付が不正です",
@@ -32,10 +33,7 @@ export const transactionFormSchema = z.object({
     .refine((value) => Number(value) > 0, {
       message: "金額は0より大きい値を入力してください",
     }),
-  [TransactionFormNames.category]: z
-    .string()
-    .min(2, { message: "カテゴリ名が短すぎます" })
-    .max(50),
+  [TransactionFormNames.categoryId]: z.string()
 })
 
 /**
@@ -51,5 +49,5 @@ export const transactionDefaultValues: TransactionFormInferType = {
   [TransactionFormNames.date]: new Date(),
   [TransactionFormNames.memo]: "",
   [TransactionFormNames.amount]: "",
-  [TransactionFormNames.category]: "",
+  [TransactionFormNames.categoryId]: ""
 }

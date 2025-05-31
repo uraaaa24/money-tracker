@@ -11,9 +11,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useGetCategories } from '@/hooks/api/use-categories'
-import { TransactionFormNames } from '@/schemas/add-transaction'
-
+import { useGetCategories } from '@/hooks/api/categories/use-categories'
+import { TransactionFormNames } from '@/schemas/transactions/add-transaction'
 
 const CategoryField = () => {
   const { control } = useFormContext()
@@ -32,7 +31,7 @@ const CategoryField = () => {
   return (
     <FormField
       control={control}
-      name={TransactionFormNames.category}
+      name={TransactionFormNames.categoryId}
       render={({ field }) => {
         return (
           <FormItem>
@@ -43,7 +42,7 @@ const CategoryField = () => {
               {isLoading ? (
                 <Skeleton className="h-9 w-full rounded-md" />
               ) : (
-                <Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <SelectTrigger className="w-full cursor-pointer">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>

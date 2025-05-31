@@ -1,7 +1,7 @@
 'use client'
 
 import DataTable from '@/components/tables'
-import { useGetTransactions } from '@/hooks/api/use-transactions'
+import { useGetTransactions } from '@/hooks/api/transactions/use-transactions'
 import type { Transaction } from '@/types/transaction'
 
 import TransactionTableActionCell from './action-cell'
@@ -17,12 +17,12 @@ const TransactionTable = () => {
       header: 'Date',
     },
     {
-      accessorKey: 'amount',
-      header: 'Amount',
+      accessorKey: 'category.name',
+      header: 'Category',
     },
     {
-      accessorKey: 'category',
-      header: 'Category',
+      accessorKey: 'amount',
+      header: 'Amount',
     },
     {
       accessorKey: 'memo',

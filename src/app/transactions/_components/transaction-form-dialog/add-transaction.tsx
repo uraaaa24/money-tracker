@@ -4,14 +4,11 @@ import { useState } from 'react'
 
 import { Plus } from 'lucide-react'
 
-
 import { Button } from '@/components/ui/button'
-import { useCreateTransaction, useGetTransactions } from '@/hooks/api/use-transactions'
+import { useCreateTransaction, useGetTransactions } from '@/hooks/api/transactions/use-transactions'
+import type { TransactionFormInferType } from '@/schemas/transactions/add-transaction'
 
 import TransactionFormDialog from './base'
-
-import type { TransactionFormInferType } from '../../../../schemas/add-transaction'
-
 
 const AddTransactionButton = () => {
   const [open, setOpen] = useState(false)

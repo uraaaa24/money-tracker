@@ -2,8 +2,7 @@ import { useFormContext } from 'react-hook-form'
 
 import SingleDatePicker from '@/components/date-picker'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-
-import { TransactionFormNames } from '../../../../../schemas/add-transaction'
+import { TransactionFormNames } from '@/schemas/transactions/add-transaction'
 
 const DateField = () => {
   const { control } = useFormContext()

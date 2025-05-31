@@ -21,7 +21,7 @@ import {
   transactionDefaultValues,
   transactionFormSchema,
   type TransactionFormInferType
-} from '@/schemas/add-transaction'
+} from '@/schemas/transactions/add-transaction'
 
 import AmountField from './forms/amount'
 import CategoryField from './forms/category'

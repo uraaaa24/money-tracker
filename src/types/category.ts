@@ -8,3 +8,8 @@ export type Category = {
   created_at: string // ISO datetime
   updated_at: string // ISO datetime
 }
+
+export type CategoryBrief = {
+  id: number
+  name: string
+}
