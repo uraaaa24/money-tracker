@@ -7,9 +7,12 @@ import useSWR from 'swr'
 import { useAuthHeader } from '@/hooks/use-auth-header'
 import { useFetcher } from '@/hooks/use-fetcher'
 import { isError } from '@/lib/type-guard'
-import type { TransactionFormInferType } from '@/schemas/transactions/add-transaction'
 
-import type { CreateTransactionRequestBody, PutTransactionRequestBody } from './transactions.type'
+import type { TransactionFormInferType } from '../schemas/add-transaction'
+import type {
+  CreateTransactionRequestBody,
+  PutTransactionRequestBody,
+} from '../types/transactions.api'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 const PREFIX = '/transactions'

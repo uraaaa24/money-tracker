@@ -5,8 +5,11 @@ import { useState } from 'react'
 import { Plus } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { useCreateTransaction, useGetTransactions } from '@/hooks/api/transactions/use-transactions'
-import type { TransactionFormInferType } from '@/schemas/transactions/add-transaction'
+import {
+  useCreateTransaction,
+  useGetTransactions,
+} from '@/features/transaction/hooks/use-transactions'
+import type { TransactionFormInferType } from '@/features/transaction/schemas/add-transaction'
 
 import TransactionFormDialog from './base'
 

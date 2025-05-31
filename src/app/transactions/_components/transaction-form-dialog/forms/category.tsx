@@ -11,8 +11,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useGetCategories } from '@/hooks/api/categories/use-categories'
-import { TransactionFormNames } from '@/schemas/transactions/add-transaction'
+import { useGetCategories } from '@/features/category/hooks/use-categories'
+import { TransactionFormNames } from '@/features/transaction/schemas/add-transaction'
 
 const CategoryField = () => {
   const { control } = useFormContext()

@@ -1,6 +1,7 @@
 import { z } from "zod"
 
-import { TransactionTypes } from "@/types/transaction"
+import { TransactionTypes } from "../types/transaction"
+
 
 /**
  * フォームフィールド名

@@ -2,6 +2,7 @@
 
 import { type ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -12,7 +13,6 @@ import {
 } from '@/components/ui/table'
 import { isError } from '@/lib/type-guard'
 
-import { Skeleton } from '../ui/skeleton'
 
 const COL_SPAN = 10
 

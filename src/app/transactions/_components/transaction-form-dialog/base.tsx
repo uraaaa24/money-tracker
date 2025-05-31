@@ -19,9 +19,9 @@ import {
 import { Form } from '@/components/ui/form'
 import {
   transactionDefaultValues,
+  type TransactionFormInferType,
   transactionFormSchema,
-  type TransactionFormInferType
-} from '@/schemas/transactions/add-transaction'
+} from '@/features/transaction/schemas/add-transaction'
 
 import AmountField from './forms/amount'
 import CategoryField from './forms/category'

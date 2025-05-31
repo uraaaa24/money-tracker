@@ -1,4 +1,4 @@
-import type { CategoryBrief } from './category'
+import type { CategoryBrief } from '@/features/category/types/category'
 
 export const TransactionTypes = {
   INCOME: 'income',

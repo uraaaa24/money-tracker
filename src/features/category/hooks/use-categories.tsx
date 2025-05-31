@@ -1,8 +1,8 @@
 import useSWR from 'swr'
 
 import { useFetcher } from '@/hooks/use-fetcher'
-import type { Category } from '@/types/category'
 
+import type { Category } from '../types/category'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 const PREFIX = '/categories'

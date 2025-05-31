@@ -1,4 +1,4 @@
-import type { TransactionType } from '@/types/transaction'
+import type { TransactionType } from '../types/transaction'
 
 export type CreateTransactionRequestBody = {
   type: TransactionType
@@ -8,4 +8,4 @@ export type CreateTransactionRequestBody = {
   memo?: string
 }
 
-export type PutTransactionRequestBody = CreateTransactionRequestBody 
+export type PutTransactionRequestBody = CreateTransactionRequestBody

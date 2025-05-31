@@ -1,8 +1,8 @@
 'use client'
 
-import DataTable from '@/components/tables'
-import { useGetTransactions } from '@/hooks/api/transactions/use-transactions'
-import type { Transaction } from '@/types/transaction'
+import DataTable from '@/components/parts/tables'
+import { useGetTransactions } from '@/features/transaction/hooks/use-transactions'
+import type { Transaction } from '@/features/transaction/types/transaction'
 
 import TransactionTableActionCell from './action-cell'
 

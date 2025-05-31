@@ -1,4 +1,4 @@
-import type { TransactionType } from './transaction'
+import type { TransactionType } from '@/features/transaction/types/transaction'
 
 export type Category = {
   id: number

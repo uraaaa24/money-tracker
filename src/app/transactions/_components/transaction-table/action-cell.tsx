@@ -1,7 +1,10 @@
-import ActionCell from '@/components/tables/action-cell'
-import ActionCellDeleteButton from '@/components/tables/actions/delete-button'
-import { useGetTransactions, useDeleteTransaction } from '@/hooks/api/transactions/use-transactions'
-import type { Transaction } from '@/types/transaction'
+import ActionCell from '@/components/parts/tables/action-cell'
+import ActionCellDeleteButton from '@/components/parts/tables/actions/delete-button'
+import {
+  useGetTransactions,
+  useDeleteTransaction,
+} from '@/features/transaction/hooks/use-transactions'
+import type { Transaction } from '@/features/transaction/types/transaction'
 
 import EditTransactionButton from '../transaction-form-dialog/edit-transaction'
 
@@ -18,12 +21,7 @@ const DeleteTransactionButton = ({ transactionId }: DeleteTransactionButtonProps
     mutate()
   }
 
-  return (
-    <ActionCellDeleteButton
-      itemId={transactionId}
-      onDelete={() => onDelete(transactionId)}
-    />
-  )
+  return <ActionCellDeleteButton itemId={transactionId} onDelete={() => onDelete(transactionId)} />
 }
 
 type TransactionTableActionCellProps = {
@@ -33,12 +31,8 @@ type TransactionTableActionCellProps = {
 const TransactionTableActionCell = ({ transaction }: TransactionTableActionCellProps) => {
   return (
     <ActionCell
-      editButton={
-        <EditTransactionButton transaction={transaction} />
-      }
-      deleteButton={
-        <DeleteTransactionButton transactionId={transaction.id} />
-      }
+      editButton={<EditTransactionButton transaction={transaction} />}
+      deleteButton={<DeleteTransactionButton transactionId={transaction.id} />}
     />
   )
 }
