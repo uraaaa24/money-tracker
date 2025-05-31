@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form'
 import SingleDatePicker from '@/components/parts/date-picker'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { TransactionFormNames } from '@/features/transaction/schemas/add-transaction'
+import { toLocalNoon } from '@/utils/date'
 
 const DateField = () => {
   const { control } = useFormContext()
@@ -17,7 +18,7 @@ const DateField = () => {
       control={control}
       name={TransactionFormNames.date}
       render={({ field }) => (
-        <FormItem >
+        <FormItem>
           <FormLabel>
             Date<span className="-ml-1.5 text-red-500">*</span>
           </FormLabel>
@@ -25,7 +26,7 @@ const DateField = () => {
             <SingleDatePicker
               selected={field.value}
               onSelect={(date) => {
-                if (date) field.onChange(date)
+                if (date) field.onChange(toLocalNoon(date))
               }}
               disabled={isDateDisabled}
             />
