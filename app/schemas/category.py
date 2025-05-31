@@ -23,10 +23,10 @@ class Category(BaseModel):
     model_config = {"from_attributes": True}
 
 
-# ------- レスポンス -------
+# ------- Response -------
 
 
-# ------- リクエスト -------
+# ------- Request -------
 class CreateCategoryRequest(BaseModel):
     user_id: str = Field(..., description="Clerkユーザーの内部ID")
     name: str = Field(..., description="カテゴリ名")
