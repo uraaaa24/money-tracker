@@ -53,7 +53,11 @@ def create_transaction(
     data = transaction_data.model_dump()
     data["user_id"] = user_id
 
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@ Creating transaction with data:", data)
+
     transaction = post_transaction(db, data)
+
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@ Created transaction:", transaction)
     return transaction
 
 

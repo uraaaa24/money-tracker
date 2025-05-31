@@ -1,17 +1,17 @@
 from app.common.enums import TransactionType
 from app.core.db import Base
-from enum import StrEnum
-from sqlalchemy import Column, Integer, Float, String, Date, DateTime, Enum as SAEnum
+from sqlalchemy import (
+    Column,
+    ForeignKey,
+    Integer,
+    Float,
+    String,
+    Date,
+    DateTime,
+    Enum as SAEnum,
+)
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-
-
-class CategoryType(StrEnum):
-    food = "food"
-    transportation = "transportation"
-    entertainment = "entertainment"
-    utilities = "utilities"
-    health = "health"
-    education = "education"
 
 
 class Transaction(Base):
@@ -24,7 +24,9 @@ class Transaction(Base):
         SAEnum(TransactionType), nullable=False, default=TransactionType.expense.value
     )
     amount = Column(Float, nullable=False)
-    category = Column(SAEnum(CategoryType), nullable=False)
+    category_id = Column(
+        Integer, ForeignKey("categories.id"), nullable=False, index=True
+    )
     date = Column(Date, nullable=False)
     created_at = Column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
@@ -35,3 +37,5 @@ class Transaction(Base):
         onupdate=func.now(),
         nullable=False,
     )
+
+    category = relationship("Category", back_populates="transactions")

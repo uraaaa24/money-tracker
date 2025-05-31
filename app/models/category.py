@@ -1,4 +1,5 @@
 from sqlalchemy import Column, DateTime, Integer, String, func
+from sqlalchemy.orm import relationship
 from app.core.db import Base
 
 
@@ -17,4 +18,8 @@ class Category(Base):
         server_default=func.now(),
         onupdate=func.now(),
         nullable=False,
+    )
+
+    transactions = relationship(
+        "Transaction", back_populates="category", cascade="all, delete"
     )
