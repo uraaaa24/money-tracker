@@ -14,16 +14,10 @@ class TransactionResponse(BaseModel):
         TransactionType.expense.value, description="支出の種類（デフォルトはexpense）"
     )
     amount: float = Field(..., gt=0, description="支出の金額（円）")
-    category: CategoryBrief = Field(..., description="支出のカテゴリ情報", exclude=True)
+    category: CategoryBrief = Field(..., description="支出のカテゴリ情報")
     date: Date = Field(..., description="支出が発生した日付")
     created_at: datetime = Field(..., description="レコード作成日時")
     updated_at: datetime = Field(..., description="レコード最終更新日時")
-
-    @computed_field
-    @property
-    def category_name(self) -> str:
-        """Returns the name of the category."""
-        return self.category.name
 
 
 # ------- Request -------
