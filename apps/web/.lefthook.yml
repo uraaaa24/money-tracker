@@ -1,0 +1,14 @@
+pre-commit:
+  parallel: true
+
+  # --- ESLint を自動 Fix ---------------------------
+  commands:
+    eslint_fix:
+      glob: "*.{ts,tsx,js,jsx}"
+      exclude: "components/ui/**"
+      run: npx eslint {staged_files} --fix
+      stage_fixed: true
+
+
+# TODO: いずれテストを追加したくなったらここで追加
+# pre-push:
