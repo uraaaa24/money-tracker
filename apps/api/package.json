@@ -1,0 +1,8 @@
+{
+  "name": "money-tracker-backend",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+      "dev": "pipenv run dev"
+    }
+}
