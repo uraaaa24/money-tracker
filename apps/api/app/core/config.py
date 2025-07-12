@@ -1,20 +1,27 @@
-import os
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-load_dotenv()
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"
+    )
 
+    # Database
+    DATABASE_URL: str
 
-class Settings:
-    SUPABASE_URL = os.getenv("SUPABASE_URL")
-    SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
+    # Clerk Authentication
+    CLERK_ISSUER: str
+    CLERK_JWKS_URL: str
+    CLERK_SECRET_KEY: str
 
-    CLERK_ISSUER = os.getenv("CLERK_ISSUER")
-    CLERK_JWKS_URL = os.getenv("CLERK_JWKS_URL")
-    CLERK_SECRET_KEY = os.getenv("CLERK_SECRET_KEY")
+    # Application
+    DEBUG: bool = False
 
-    DATABASE_URL = os.getenv("DATABASE_URL")
-    DEBUG: bool = os.getenv("DEBUG", "False").lower() in ["true", "1", "yes"]
+    # Legacy Supabase settings (unused but may exist in env)
+    SUPABASE_URL: str | None = None
+    SUPABASE_SERVICE_KEY: str | None = None
 
 
 settings = Settings()

@@ -9,7 +9,7 @@ export type TransactionType = (typeof TransactionTypes)[keyof typeof Transaction
 export type Transaction = {
   id: number
   user_id: number
-  title: string
+  memo: string
   amount: number
   category: CategoryBrief
   type: TransactionType

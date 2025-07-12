@@ -1,27 +1,25 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import desc, select
+from sqlalchemy.orm import Session
+from sqlalchemy import desc
 
 from app.models.transaction import Transaction
 
 
-def get_transactions_by_user_id(session: AsyncSession, user_id: str):
+def get_transactions_by_user_id(session: Session, user_id: str):
     """
     ユーザーIDを指定して、そのユーザーの支出を取得する
     """
-    stmt = (
-        select(Transaction)
-        .where(Transaction.user_id == user_id)
+    transactions = (
+        session.query(Transaction)
+        .filter(Transaction.user_id == user_id)
         .order_by(desc(Transaction.date), desc(Transaction.created_at))
+        .all()
     )
-
-    result = session.execute(stmt)
-    transactions = result.scalars().all()
 
     return transactions
 
 
 def post_transaction(
-    session: AsyncSession,
+    session: Session,
     create_transaction_data: dict,
 ):
     """
@@ -35,18 +33,21 @@ def post_transaction(
 
 
 def delete_transaction_by_user_id_and_transaction_id(
-    session: AsyncSession,
+    session: Session,
     user_id: str,
     transaction_id: int,
 ):
     """
     ユーザーIDと支出IDを指定して、その支出を削除する
     """
-    stmt = select(Transaction).where(
-        Transaction.user_id == user_id, Transaction.id == transaction_id
+    transaction = (
+        session.query(Transaction)
+        .filter(
+            Transaction.user_id == user_id,
+            Transaction.id == transaction_id
+        )
+        .first()
     )
-    result = session.execute(stmt)
-    transaction = result.scalars().first()
 
     if not transaction:
         return False
@@ -57,7 +58,7 @@ def delete_transaction_by_user_id_and_transaction_id(
 
 
 def put_transaction(
-    session: AsyncSession,
+    session: Session,
     user_id: str,
     transaction_id: int,
     update_data: dict,
@@ -65,11 +66,14 @@ def put_transaction(
     """
     ユーザーIDと支出IDを指定して、その支出を更新する
     """
-    stmt = select(Transaction).where(
-        Transaction.user_id == user_id, Transaction.id == transaction_id
+    transaction = (
+        session.query(Transaction)
+        .filter(
+            Transaction.user_id == user_id,
+            Transaction.id == transaction_id
+        )
+        .first()
     )
-    result = session.execute(stmt)
-    transaction = result.scalars().first()
 
     if not transaction:
         return False

@@ -24,7 +24,6 @@ interface MutationOptions<TData, TArg, TBody = TArg> {
   buildUrl?: (base: string, arg: TArg) => string
   /** リクエストボディを動的に組み立てたい場合 */
   prepareBody?: (arg: TArg) => TBody
-
 }
 
 /**
@@ -33,10 +32,11 @@ interface MutationOptions<TData, TArg, TBody = TArg> {
 export const useApiMutation = <
   TData = unknown,
   TArg = unknown,
+  TBody = TArg
 >(
   baseUrl: string,
   method: HttpMethod,
-  opts: MutationOptions<TData, TArg> = {},
+  opts: MutationOptions<TData, TArg, TBody> = {},
 ) => {
   const { makeAuthHeader } = useAuthHeader()
 
@@ -48,10 +48,12 @@ export const useApiMutation = <
       'Content-Type': 'application/json',
     }
 
+    const body = opts.prepareBody ? opts.prepareBody(arg) : arg
+
     const res = await fetch(target, {
       method,
       headers,
-      body: JSON.stringify(arg),
+      body: JSON.stringify(body),
     })
     if (!res.ok) throw new Error(`Failed to ${method} ${target}`)
     return res.status === 204 ? (null as TData) : res.json()

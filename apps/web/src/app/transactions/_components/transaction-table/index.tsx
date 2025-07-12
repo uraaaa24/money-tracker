@@ -11,6 +11,8 @@ import type { ColumnDef } from '@tanstack/react-table'
 const TransactionTable = () => {
   const { isLoading, error, transactions } = useGetTransactions()
 
+  console.log('TransactionTable transactions:', transactions)
+
   const columns: ColumnDef<Transaction>[] = [
     {
       accessorKey: 'date',

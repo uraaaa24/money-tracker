@@ -28,10 +28,11 @@ const EditTransactionButton = ({ transaction }: EditTransactionButtonProps) => {
     amount: String(transaction.amount),
     date: new Date(transaction.date),
     categoryId: String(transaction.category.id),
+    memo: transaction.memo || "",
   }
 
   const handleUpdate = async (values: TransactionFormInferType) => {
-    await updateTransaction(transaction.id, values)
+    await updateTransaction({ id: transaction.id, data: values })
     mutate()
   }
 

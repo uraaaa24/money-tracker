@@ -1,13 +1,11 @@
 import useSWR from 'swr'
 
 import { useFetcher } from '@/hooks/use-fetcher'
+import { env } from '@/lib/env'
 
 import type { Category } from '../types/category'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
-const PREFIX = '/categories'
-
-const API_CATEGORIES_URL = `${API_URL}${PREFIX}`
+const API_CATEGORIES_URL = `${env.NEXT_PUBLIC_API_URL}/categories`
 
 export const useGetCategories = () => {
   const { authFetcher } = useFetcher()
