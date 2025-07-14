@@ -1,14 +1,34 @@
+from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.core.auth import get_current_user
-from app.core.db import get_db
+from app.core.db import get_db, SessionLocal
 from app.routers import categories, transactions, dashboard
+from app.services.category_seed import ensure_default_categories_exist
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    """
+    アプリのライフサイクル管理
+    """
+    # Startup
+    db = SessionLocal()
+    try:
+        ensure_default_categories_exist(db)
+    finally:
+        db.close()
+
+    yield
+
+    # Shutdown (if needed)
+    pass
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 origins = [
