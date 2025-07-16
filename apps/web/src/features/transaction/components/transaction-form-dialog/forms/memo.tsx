@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form'
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { TransactionFormNames } from '@/features/transaction/schemas/add-transaction'
 
 const MemoField = () => {
@@ -13,13 +13,14 @@ const MemoField = () => {
       name={TransactionFormNames.memo}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Memo</FormLabel>
+          <FormLabel>Memo <span className="text-xs text-muted-foreground">(optional)</span></FormLabel>
           <FormControl>
-            <Input
+            <Textarea
               {...field}
-              type="text"
               value={field.value ?? ''}
-              placeholder="Enter memo"
+              placeholder="Add a note about this transaction..."
+              rows={3}
+              className="resize-none"
             />
           </FormControl>
           <FormMessage />

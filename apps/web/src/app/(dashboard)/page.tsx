@@ -1,13 +1,12 @@
 'use client'
 
-import { TrendingUp, TrendingDown, DollarSign, Activity } from 'lucide-react'
-
 import AppLayout from '@/components/layouts/app-layout'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useGetDashboardSummary } from '@/features/dashboard/hooks/use-dashboard'
-import { SummaryCard } from '@/features/dashboard/components/summary-card'
 import { RecentTransactions } from '@/features/dashboard/components/recent-transactions'
+import { SummaryCard } from '@/features/dashboard/components/summary-card'
 import { TopCategories } from '@/features/dashboard/components/top-categories'
+import { useGetDashboardSummary } from '@/features/dashboard/hooks/use-dashboard'
+import { Activity, DollarSign, TrendingDown, TrendingUp } from 'lucide-react'
 
 export default function Dashboard() {
   const { summary, isLoading, error } = useGetDashboardSummary()
@@ -28,12 +27,12 @@ export default function Dashboard() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {['income', 'expense', 'balance', 'count'].map((key) => (
-              <Skeleton key={key} className="h-32" />
+              <Skeleton key={key} className="h-32 bg-gray-200" />
             ))}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Skeleton className="h-80" />
-            <Skeleton className="h-80" />
+            <Skeleton className="h-80 bg-gray-200" />
+            <Skeleton className="h-80 bg-gray-200" />
           </div>
         </div>
       </AppLayout>
@@ -60,7 +59,7 @@ export default function Dashboard() {
             }}
             icon={<TrendingUp className="h-4 w-4" />}
           />
-          
+
           <SummaryCard
             title="今月の支出"
             value={`¥${current_month.total_expense.toLocaleString()}`}
@@ -70,7 +69,7 @@ export default function Dashboard() {
             }}
             icon={<TrendingDown className="h-4 w-4" />}
           />
-          
+
           <SummaryCard
             title="今月の収支"
             value={`¥${current_month.net_amount.toLocaleString()}`}
@@ -80,7 +79,7 @@ export default function Dashboard() {
             }}
             icon={<DollarSign className="h-4 w-4" />}
           />
-          
+
           <SummaryCard
             title="今月の取引数"
             value={`${current_month.transaction_count}件`}

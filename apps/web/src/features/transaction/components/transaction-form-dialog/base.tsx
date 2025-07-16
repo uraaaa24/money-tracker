@@ -27,6 +27,7 @@ import AmountField from './forms/amount'
 import CategoryField from './forms/category'
 import DateField from './forms/date'
 import MemoField from './forms/memo'
+import TypeField from './forms/type'
 
 type TransactionFormDialogProps = {
   trigger: React.ReactNode
@@ -65,37 +66,55 @@ const TransactionFormDialog = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
-      <DialogContent className="w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-full max-w-2xl max-h-[95vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Add Transaction</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">
+            {isEdit ? 'Edit Transaction' : 'Add New Transaction'}
+          </DialogTitle>
           <DialogDescription className="hidden">
             {isEdit
-              ? 'Update the fields below and save your changes.'
-              : 'Fill in the form below to add a new transaction.'}
+              ? 'Update the transaction details below.'
+              : 'Fill in the form to record a new transaction.'}
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <DateField />
-              <CategoryField />
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 pt-2">
+            <div className="space-y-4">
+              <TypeField />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <DateField />
+                <CategoryField />
+              </div>
+
+              <AmountField />
+              <MemoField />
             </div>
-            <AmountField />
-            <MemoField />
 
             <DialogFooter>
               <DialogClose asChild onClick={handleClose}>
-                <Button type="button" variant="outline" className="cursor-pointer">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="cursor-pointer transition-colors"
+                >
                   Cancel
                 </Button>
               </DialogClose>
               <Button
                 type="submit"
                 disabled={!form.formState.isValid || form.formState.isSubmitting}
-                className="cursor-pointer"
+                className="cursor-pointer transition-all disabled:opacity-50"
               >
-                {form.formState.isSubmitting ? 'Saving…' : isEdit ? 'Update' : 'Submit'}
+                {form.formState.isSubmitting ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Saving...
+                  </div>
+                ) : (
+                  isEdit ? 'Update Transaction' : 'Add Transaction'
+                )}
               </Button>
             </DialogFooter>
           </form>
